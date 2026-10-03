@@ -1,0 +1,20 @@
+apiVersion: lowops.manifests.v1
+kind: DeploymentConfig
+metadata:
+  name: island-venues-web
+  project: island-venues
+  environment: development
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: Customer web app
+  # Static bundle served by the nginx image the engine generates for REACT
+  # builds. It reads no environment variables: API calls are same-origin
+  # (/api/...) and the load balancer routes them.
+  ports:
+    8080: http
+  scaling:
+    min: 0
+  # Placeholder. No image exists yet: the first CI build of the repository
+  # produces the real version tag, which replaces this value before apply.
+  version: "0.1.0"

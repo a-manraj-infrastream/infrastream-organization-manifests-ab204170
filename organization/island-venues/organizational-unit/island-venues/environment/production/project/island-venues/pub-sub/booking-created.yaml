@@ -1,0 +1,17 @@
+apiVersion: lowops.manifests.v1
+kind: PubSub
+metadata:
+  name: booking-created
+  project: island-venues
+  environment: production
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: One event per accepted booking, published by the api and delivered to the notifier
+  # Seven days of retention so a failed confirmation run can be replayed.
+  messageRetentionDurationSeconds: 604800
+  # Eventarc pushes each message to POST / on the notifier. 2xx acknowledges,
+  # 4xx drops a malformed payload, 5xx makes Eventarc retry.
+  notifications:
+    - deploymentConfig: island-venues-notifier
+      path: /
