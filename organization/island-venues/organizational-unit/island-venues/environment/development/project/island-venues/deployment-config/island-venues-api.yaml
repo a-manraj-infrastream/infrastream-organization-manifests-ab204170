@@ -39,6 +39,6 @@ spec:
   # cold start, which is acceptable in development.
   scaling:
     min: 0
-  # Placeholder. No image exists yet: the first CI build of the repository
-  # produces the real version tag, which replaces this value before apply.
-  version: "0.1.0"
+  # The release tag CI cut on the first merge to main. The image carries the same
+  # tag (docker metadata type=semver,pattern={{raw}}), so this is the image version.
+  version: v0.1.0
