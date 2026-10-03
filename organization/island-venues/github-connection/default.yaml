@@ -1,0 +1,11 @@
+apiVersion: lowops.manifests.v1
+kind: GithubConnection
+metadata:
+  name: default
+  organization: island-venues
+spec:
+  description: The account that holds the Island Venues source repositories
+  owner: a-manraj-infrastream
+  authenticationMethod: GITHUB_APP
+  administrators:
+    - ashley-manraj

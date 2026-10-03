@@ -1,0 +1,31 @@
+apiVersion: lowops.manifests.v1
+kind: GithubRepository
+metadata:
+  name: island-venues-web
+  github-connection: default
+  organization: island-venues
+spec:
+  description: "Island Venues customer app (React + Vite), behind Identity Platform"
+  public: true
+  strategy: TRUNK_BASED
+  configuration:
+    wiki: false
+    projects: false
+    issues: true
+    downloads: false
+  codeOwners:
+    - path: "*"
+      owners:
+        - venue-admins
+  permissions:
+    administrators:
+      groups:
+        - venue-admins
+      members: []
+    contributors:
+      groups:
+        - developers
+      members: []
+    viewers:
+      groups: []
+      members: []

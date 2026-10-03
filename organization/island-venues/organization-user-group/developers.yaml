@@ -1,0 +1,12 @@
+apiVersion: lowops.manifests.v1
+kind: OrganizationUserGroup
+metadata:
+  name: developers
+  organization: island-venues
+spec:
+  description: Developers of the Island Venues services
+  parent: ""
+  members:
+    users:
+      - ashley-manraj
+    external: []

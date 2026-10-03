@@ -1,0 +1,18 @@
+apiVersion: lowops.manifests.v1
+kind: Project
+metadata:
+  name: island-venues
+  environment: production
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  displayName: Island Venues - Production
+  description: Services, data and edge for Island Venues in production
+  defaultUrlRedirect: https://island-venues.infrastream.io
+  maintenance:
+    start: "2026-01-01T00:00:00Z"
+    end: "2026-01-01T01:00:00Z"
+  # Outbound internet is denied unless listed. The notifier sends booking
+  # confirmations through SendGrid; nothing else needs to leave the network.
+  allowedEgress:
+    - api.sendgrid.com

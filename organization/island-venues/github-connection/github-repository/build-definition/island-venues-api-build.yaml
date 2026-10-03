@@ -1,0 +1,21 @@
+apiVersion: lowops.manifests.v1
+kind: BuildDefinition
+metadata:
+  name: island-venues-api
+  github-repository: island-venues-api
+  github-connection: default
+  organization: island-venues
+spec:
+  type: GOLANG
+  stages:
+    - analysis
+    - test
+    - build
+    - containerize
+  golang:
+    target: main.go
+    buildType: bin
+  containerize:
+    name: island-venues-api
+    registries:
+      - docker-private

@@ -1,0 +1,12 @@
+apiVersion: lowops.manifests.v1
+kind: OrganizationUserGroup
+metadata:
+  name: venue-admins
+  organization: island-venues
+spec:
+  description: Administrators of the Island Venues demo organization
+  parent: ""
+  members:
+    users:
+      - ashley-manraj
+    external: []
