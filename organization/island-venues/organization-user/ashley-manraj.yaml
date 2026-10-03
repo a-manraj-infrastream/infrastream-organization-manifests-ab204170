@@ -4,7 +4,10 @@ metadata:
   name: ashley-manraj
   organization: island-venues
 spec:
-  primaryEmail: ashley.manraj@pvotal.tech
+  # The address actually used to sign in to this tenant's portal. svc-portal
+  # resolves every caller against OrganizationUser emails once any user exists,
+  # so a primaryEmail nobody signs in with locks the portal out.
+  primaryEmail: unfederatedadmin@infrastream.io
   identity:
     firstName: Ashley
     lastName: Manraj
