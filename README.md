@@ -1,19 +1,18 @@
-# Island Venues — organization manifests
+# Infrastream: island-venues
 
-Infrastructure for **Island Venues**, the open-source reference app of the DevFest 2026
-talk "The Era of Agentic Developer Platforms": book event venues across Mauritius.
+Welcome to the central manifest repository for **island-venues**.
 
-Every change to this repository is a pull request. Infrastream plans it on the pull
-request and applies it when it is merged.
+This repository is the **Source of Truth** for your entire infrastructure platform. All resources, permissions, and environments are defined here declaratively using Infrastream manifests.
 
-| Repository | What it is |
-|---|---|
-| [island-venues-api](https://github.com/a-manraj-infrastream/island-venues-api) | Go API: venue catalog, bookings, staff actions, payment webhook |
-| [island-venues-notifier](https://github.com/a-manraj-infrastream/island-venues-notifier) | Go service: booking confirmation e-mails from Pub/Sub |
-| [island-venues-web](https://github.com/a-manraj-infrastream/island-venues-web) | React customer app |
-| [island-venues-admin](https://github.com/a-manraj-infrastream/island-venues-admin) | React staff console behind Identity-Aware Proxy |
+## Organization Overview
 
-## Layout
+Island Venues is an open-source reference application for the DevFest 2026 talk
+"The Era of Agentic Developer Platforms": book event venues across Mauritius.
+Customers sign in with Google through Identity Platform; staff reach the admin
+app through Identity-Aware Proxy.
 
-- `organization/island-venues/` — the organization, its users and groups, registries and the GitHub connection with the four repositories and their build definitions.
-- `organizational-unit/island-venues/` — environments `development` and `production`, the `island-venues` project in each, and the `main` release track.
+
+
+- **External Domain:** [island-venues.infrastream.io](https://island-venues.infrastream.io)
+- **Default Region:** us-central1
+- **GCP Organization ID:** 
