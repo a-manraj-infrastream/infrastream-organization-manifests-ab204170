@@ -17,6 +17,18 @@ spec:
         value: island-venues-notifier
       - name: LOG_LEVEL
         value: debug
+      # Only Eventarc pushes are accepted: the notifier verifies the Google OIDC
+      # token on every POST and requires it to belong to this account. The engine
+      # runs the Eventarc trigger as the application's own service account,
+      # app-<sha256("island-venues-notifier")[:12]> in the island-venues-27e7 project
+      # (project_executor.go, GetShortDeterministicPhysicalName(appName, "app", 30)).
+      # Without it the notifier refuses to start (fail closed).
+      - name: PUSH_SERVICE_ACCOUNT
+        value: app-23ff2ba10851@island-venues-27e7.iam.gserviceaccount.com
+      # PUSH_AUDIENCE is deliberately unset. Eventarc uses the Cloud Run service
+      # URL as the token audience, and that URL exists only after the first
+      # apply; unset, the notifier accepts "https://" + the request host. Set it
+      # to the service URL afterwards to pin it.
   ports:
     8080: http
   # Cloud Run gates traffic on this startup probe. The Go services answer
