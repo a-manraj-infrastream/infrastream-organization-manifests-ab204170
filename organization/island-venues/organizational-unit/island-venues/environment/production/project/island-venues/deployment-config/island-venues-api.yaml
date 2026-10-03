@@ -1,0 +1,44 @@
+apiVersion: lowops.manifests.v1
+kind: DeploymentConfig
+metadata:
+  name: island-venues-api
+  project: island-venues
+  environment: production
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: Venue catalog and bookings API
+  # DATABASE_URL and PAYMENT_WEBHOOK_SECRET are injected from the Application's
+  # accessControl (database.secretSource and secrets); the engine also sets
+  # GOOGLE_CLOUD_PROJECT and INFRASTREAM_APP_VERSION.
+  # IAP_AUDIENCE is not set yet: its value names the ingress IAP backend service,
+  # which exists only after the first apply. Until it is set, signed-in routes
+  # answer 401 (the api never trusts IAP headers it cannot verify).
+  container:
+    env:
+      - name: SERVICE_NAME
+        value: island-venues-api
+      - name: PUBSUB_TOPIC
+        value: booking-created
+      - name: LOG_LEVEL
+        value: info
+  ports:
+    8080: http
+  # Cloud Run gates traffic on this startup probe. The Go services answer
+  # GET /healthz with 200 once the HTTP server is listening.
+  health:
+    startup:
+      protocol: http
+      port: 8080
+      path: /healthz
+      checkIntervalSec: 5
+      timeoutSec: 5
+      healthyThreshold: 1
+      unhealthyThreshold: 30
+  # One warm instance: the customer app and the booking flow sit behind this
+  # service, so production does not pay a cold start on the first request.
+  scaling:
+    min: 1
+  # Placeholder. No image exists yet: the first CI build of the repository
+  # produces the real version tag, which replaces this value before apply.
+  version: "0.1.0"

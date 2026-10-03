@@ -1,0 +1,35 @@
+apiVersion: lowops.manifests.v1
+kind: Application
+metadata:
+  name: island-venues-api
+  application-set: island-venues
+  release-track: main
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: Venue catalog and bookings API
+  project: island-venues
+  buildDefinition: island-venues-api
+  meshStrategy: SIDECAR
+  target: CLOUD_RUN
+  accessControl:
+    # Grants roles/pubsub.publisher on the topic. The api publishes one
+    # booking-created event per accepted booking (topic name in PUBSUB_TOPIC).
+    pubsub:
+      publishTo:
+        - booking-created
+    # The engine creates a database user for this application, stores its
+    # connection string (postgresql://...) in a Secret Manager secret and injects
+    # it as DATABASE_URL. ALL is needed because the api runs its own
+    # CREATE TABLE IF NOT EXISTS migrations at start-up.
+    database:
+      name: main
+      schema: island-venues
+      privileges:
+        - ALL
+      secretSource:
+        envVar: DATABASE_URL
+    # HMAC key for /webhooks/payments. The value is set out of band.
+    secrets:
+      payment-webhook-secret:
+        envVar: PAYMENT_WEBHOOK_SECRET

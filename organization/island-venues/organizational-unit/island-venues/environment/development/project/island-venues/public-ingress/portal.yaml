@@ -1,0 +1,21 @@
+apiVersion: lowops.manifests.v1
+kind: PublicIngress
+metadata:
+  name: portal
+  project: island-venues
+  environment: development
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: Edge for the customer and staff apps
+  # Phase 1, no domain yet. GOOGLE_MANAGED gives each route its own Google
+  # hostname and certificate, <route>-portal.endpoints.<project>.cloud.goog,
+  # with no DNS work. The mode refuses Identity Platform, so every signed-in
+  # rule uses INTERNAL (IAP) until phase 2 moves to a real domain.
+  domain:
+    dns: GOOGLE_MANAGED
+  # Who IAP lets through on INTERNAL rules, on both routes.
+  iapPermissions:
+    groups:
+      - venue-ops
+      - venue-admins

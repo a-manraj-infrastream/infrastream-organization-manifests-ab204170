@@ -1,0 +1,14 @@
+apiVersion: lowops.manifests.v1
+kind: Application
+metadata:
+  name: island-venues-admin
+  application-set: island-venues
+  release-track: main
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: Staff web app
+  project: island-venues
+  buildDefinition: island-venues-admin
+  meshStrategy: SIDECAR
+  target: CLOUD_RUN

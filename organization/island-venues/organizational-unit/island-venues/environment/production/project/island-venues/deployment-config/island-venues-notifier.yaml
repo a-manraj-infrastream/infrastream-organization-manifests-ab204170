@@ -1,0 +1,39 @@
+apiVersion: lowops.manifests.v1
+kind: DeploymentConfig
+metadata:
+  name: island-venues-notifier
+  project: island-venues
+  environment: production
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: Booking confirmation sender, receives booking-created via Eventarc
+  # SENDGRID_API_KEY is injected from the Application's accessControl.secrets.
+  # SENDER_EMAIL is deliberately not set yet: it must be a sender verified in
+  # SendGrid. Without it the notifier logs the confirmation instead of sending.
+  container:
+    env:
+      - name: SERVICE_NAME
+        value: island-venues-notifier
+      - name: LOG_LEVEL
+        value: info
+  ports:
+    8080: http
+  # Cloud Run gates traffic on this startup probe. The Go services answer
+  # GET /healthz with 200 once the HTTP server is listening.
+  health:
+    startup:
+      protocol: http
+      port: 8080
+      path: /healthz
+      checkIntervalSec: 5
+      timeoutSec: 5
+      healthyThreshold: 1
+      unhealthyThreshold: 30
+  # Push deliveries wake the service, so it can scale to zero in every
+  # environment; a cold start only delays an email by a second or two.
+  scaling:
+    min: 0
+  # Placeholder. No image exists yet: the first CI build of the repository
+  # produces the real version tag, which replaces this value before apply.
+  version: "0.1.0"

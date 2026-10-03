@@ -1,0 +1,25 @@
+apiVersion: lowops.manifests.v1
+kind: Application
+metadata:
+  name: island-venues-notifier
+  application-set: island-venues
+  release-track: main
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: Booking confirmation sender
+  project: island-venues
+  buildDefinition: island-venues-notifier
+  meshStrategy: SIDECAR
+  target: CLOUD_RUN
+  accessControl:
+    # Declares the notifier as the consumer of booking-created. Delivery itself
+    # is an Eventarc push to POST / wired by the topic's spec.notifications; this
+    # entry only grants roles/pubsub.subscriber on the topic.
+    pubsub:
+      subscribeTo:
+        - booking-created
+    # SendGrid API key. The value is set out of band.
+    secrets:
+      sendgrid-api-key:
+        envVar: SENDGRID_API_KEY

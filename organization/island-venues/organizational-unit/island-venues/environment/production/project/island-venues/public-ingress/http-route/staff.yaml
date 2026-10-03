@@ -1,0 +1,29 @@
+apiVersion: lowops.manifests.v1
+kind: HttpRoute
+metadata:
+  name: staff
+  project: island-venues
+  environment: production
+  organizational-unit: island-venues
+  organization: island-venues
+  public-ingress: portal
+spec:
+  description: Staff app and the admin API, IAP only
+  # Every rule requires IAP; there is no open path on this hostname.
+  rules:
+    - matches:
+        - prefixMatch: /api/admin/
+      authentication:
+        - type: INTERNAL
+      action:
+        destinations:
+          - deploymentConfig: island-venues-api
+            port: 8080
+    - matches:
+        - prefixMatch: /
+      authentication:
+        - type: INTERNAL
+      action:
+        destinations:
+          - deploymentConfig: island-venues-admin
+            port: 8080
