@@ -1,0 +1,31 @@
+apiVersion: lowops.manifests.v1
+kind: GithubRepository
+metadata:
+  name: island-venues-api
+  github-connection: default
+  organization: island-venues
+spec:
+  description: "Island Venues API: venue catalog and bookings over gRPC, on AlloyDB, with logs, traces and profiles"
+  public: true
+  strategy: TRUNK_BASED
+  configuration:
+    wiki: false
+    projects: false
+    issues: true
+    downloads: false
+  codeOwners:
+    - path: "*"
+      owners:
+        - venue-admins
+  permissions:
+    administrators:
+      groups:
+        - venue-admins
+      members: []
+    contributors:
+      groups:
+        - developers
+      members: []
+    viewers:
+      groups: []
+      members: []

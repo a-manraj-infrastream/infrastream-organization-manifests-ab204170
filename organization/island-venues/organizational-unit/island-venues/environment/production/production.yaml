@@ -1,0 +1,13 @@
+apiVersion: lowops.manifests.v1
+kind: Environment
+metadata:
+  name: production
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  displayName: Production
+  description: Released after an approved promotion from development.
+  network:
+    logs:
+      interval: INTERVAL_5_MIN
+      sampling: 1.0

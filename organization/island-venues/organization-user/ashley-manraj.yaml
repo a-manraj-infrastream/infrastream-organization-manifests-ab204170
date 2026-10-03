@@ -1,0 +1,14 @@
+apiVersion: lowops.manifests.v1
+kind: OrganizationUser
+metadata:
+  name: ashley-manraj
+  organization: island-venues
+spec:
+  primaryEmail: ashley.manraj@pvotal.tech
+  identity:
+    firstName: Ashley
+    lastName: Manraj
+  externalAccounts:
+    - sourceType: GITHUB
+      sourceName: default
+      username: a-manraj-infrastream

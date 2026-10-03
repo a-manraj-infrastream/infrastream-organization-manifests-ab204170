@@ -1,0 +1,23 @@
+apiVersion: lowops.manifests.v1
+kind: BuildDefinition
+metadata:
+  name: island-venues-web
+  github-repository: island-venues-web
+  github-connection: default
+  organization: island-venues
+spec:
+  type: REACT
+  stages:
+    - analysis
+    - test
+    - build
+    - publish
+    - containerize
+  publish:
+    registry: static-private
+  containerize:
+    name: island-venues-web
+    platforms:
+      - linux/amd64
+    registries:
+      - docker-private

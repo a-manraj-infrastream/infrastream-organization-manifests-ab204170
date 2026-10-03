@@ -1,0 +1,20 @@
+apiVersion: lowops.manifests.v1
+kind: OrganizationalUnit
+metadata:
+  name: island-venues
+  organization: island-venues
+spec:
+  displayName: Island Venues
+  description: The venue-booking product line
+  permissions:
+    administrators:
+      groups:
+        - venue-admins
+      members: []
+    contributors:
+      groups:
+        - developers
+      members: []
+    viewers:
+      groups: []
+      members: []

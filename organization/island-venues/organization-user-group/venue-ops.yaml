@@ -1,0 +1,12 @@
+apiVersion: lowops.manifests.v1
+kind: OrganizationUserGroup
+metadata:
+  name: venue-ops
+  organization: island-venues
+spec:
+  description: Staff who operate venues and bookings; IAP accessors of the admin app
+  parent: ""
+  members:
+    users:
+      - ashley-manraj
+    external: []

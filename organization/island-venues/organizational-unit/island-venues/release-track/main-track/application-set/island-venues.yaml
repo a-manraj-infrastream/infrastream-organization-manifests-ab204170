@@ -1,0 +1,9 @@
+apiVersion: lowops.manifests.v1
+kind: ApplicationSet
+metadata:
+  name: island-venues
+  release-track: main
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: The Island Venues services and apps

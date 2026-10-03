@@ -1,0 +1,20 @@
+apiVersion: lowops.manifests.v1
+kind: ReleaseTrack
+metadata:
+  name: main
+  organization: island-venues
+  organizational-unit: island-venues
+spec:
+  description: Development first, then production after an approval
+  preReleaseStages:
+    - environments:
+        - development
+  releaseStages:
+    - environments:
+        - production
+      approvalPolicy:
+        anyOf:
+          minApprovals: 1
+          policies:
+            - stakeholder:
+                groupEmail: venue-admins

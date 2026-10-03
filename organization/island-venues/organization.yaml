@@ -1,0 +1,28 @@
+apiVersion: lowops.manifests.v1
+kind: Organization
+metadata:
+  name: island-venues
+spec:
+  description: |
+    Island Venues is an open-source reference application for the DevFest 2026 talk
+    "The Era of Agentic Developer Platforms": book event venues across Mauritius.
+    Customers sign in with Google through Identity Platform; staff reach the admin
+    app through Identity-Aware Proxy.
+  # us-central1 for now, deliberately: it is the region every managed-hosting
+  # component is proven in. The region will be revisited once the demo runs end to end.
+  defaultRegion: us-central1
+  domain:
+    external: island-venues.infrastream.io
+    internal: island-venues.internal
+  github:
+    organization: a-manraj-infrastream
+  permissions:
+    administrators:
+      groups:
+        - venue-admins
+      members: []
+    contributors:
+      groups: []
+      members: []
+  workforceFederation:
+    infrastreamManaged: {}

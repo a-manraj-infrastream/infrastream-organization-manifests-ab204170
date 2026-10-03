@@ -1,0 +1,18 @@
+apiVersion: lowops.manifests.v1
+kind: ArtifactRegistry
+metadata:
+  name: docker-private
+  organization: island-venues
+spec:
+  description: Private Docker registry for service images
+  enabled: true
+  public: false
+  type: DOCKER
+  permissions:
+    readers:
+      groups:
+        - developers
+      members: []
+    writers:
+      groups: []
+      members: []
