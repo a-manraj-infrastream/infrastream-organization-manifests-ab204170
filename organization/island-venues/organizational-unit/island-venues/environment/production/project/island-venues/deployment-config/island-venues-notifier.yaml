@@ -48,4 +48,4 @@ spec:
     min: 0
   # The release tag CI cut on the first merge to main. The image carries the same
   # tag (docker metadata type=semver,pattern={{raw}}), so this is the image version.
-  version: v0.1.0
+  version: v0.1.1
