@@ -1,0 +1,44 @@
+apiVersion: lowops.manifests.v1
+kind: DeploymentConfig
+metadata:
+  name: island-venues-api
+  project: island-venues
+  environment: development
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: Venue catalog and bookings API
+  # DATABASE_URL and PAYMENT_WEBHOOK_SECRET are injected from the Application's
+  # accessControl (database.secretSource and secrets); the engine also sets
+  # GOOGLE_CLOUD_PROJECT and INFRASTREAM_APP_VERSION.
+  # IAP_AUDIENCE is not set yet: its value names the ingress IAP backend service,
+  # which exists only after the first apply. Until it is set, signed-in routes
+  # answer 401 (the api never trusts IAP headers it cannot verify).
+  container:
+    env:
+      - name: SERVICE_NAME
+        value: island-venues-api
+      - name: PUBSUB_TOPIC
+        value: booking-created
+      - name: LOG_LEVEL
+        value: debug
+  ports:
+    8080: http
+  # Cloud Run gates traffic on this startup probe. The Go services answer
+  # GET /healthz with 200 once the HTTP server is listening.
+  health:
+    startup:
+      protocol: http
+      port: 8080
+      path: /healthz
+      checkIntervalSec: 5
+      timeoutSec: 5
+      healthyThreshold: 1
+      unhealthyThreshold: 30
+  # Scales to zero when idle; the first request after a quiet period pays a
+  # cold start, which is acceptable in development.
+  scaling:
+    min: 0
+  # The release tag CI cut on the first merge to main. The image carries the same
+  # tag (docker metadata type=semver,pattern={{raw}}), so this is the image version.
+  version: v0.1.0

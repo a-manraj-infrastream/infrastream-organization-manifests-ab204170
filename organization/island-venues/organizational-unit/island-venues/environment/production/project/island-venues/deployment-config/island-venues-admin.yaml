@@ -1,0 +1,20 @@
+apiVersion: lowops.manifests.v1
+kind: DeploymentConfig
+metadata:
+  name: island-venues-admin
+  project: island-venues
+  environment: production
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: Staff web app
+  # Static bundle served by the nginx image the engine generates for REACT
+  # builds. It reads no environment variables: API calls are same-origin
+  # (/api/...) and the load balancer routes them.
+  ports:
+    8080: http
+  scaling:
+    min: 0
+  # The release tag CI cut on the first merge to main. The image carries the same
+  # tag (docker metadata type=semver,pattern={{raw}}), so this is the image version.
+  version: v0.1.0

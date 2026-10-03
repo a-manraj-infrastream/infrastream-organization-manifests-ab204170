@@ -1,0 +1,26 @@
+apiVersion: lowops.manifests.v1
+kind: Database
+metadata:
+  name: main
+  project: island-venues
+  environment: production
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: Venues and bookings for Island Venues
+  alloydb:
+    # Smallest AlloyDB shape: one 1-vCPU primary (C4A family), no read pool.
+    # The cluster runs around the clock, so this is the largest fixed cost of
+    # the tenant; a read pool would double it for no benefit at demo traffic.
+    cpuCount: 1
+    clusterSize: 1
+    # Backups only in production: development holds seed data the api recreates
+    # on start-up, so paying for backup storage there buys nothing. Seven
+    # backups bound the storage bill while covering a week of mistakes.
+    # Note: the engine validates this block but does not provision the backup
+    # policy yet (BackupConfig is PARTIALLY IMPLEMENTED in the schema).
+    backupConfig:
+      enabled: true
+      quantityBasedRetention: 7
+  databases:
+    - name: island-venues

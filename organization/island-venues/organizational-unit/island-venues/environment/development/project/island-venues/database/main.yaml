@@ -1,0 +1,19 @@
+apiVersion: lowops.manifests.v1
+kind: Database
+metadata:
+  name: main
+  project: island-venues
+  environment: development
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: Venues and bookings for Island Venues
+  alloydb:
+    # Smallest AlloyDB shape: one 1-vCPU primary (C4A family), no read pool.
+    # The cluster runs around the clock, so this is the largest fixed cost of
+    # the tenant; a read pool would double it for no benefit at demo traffic.
+    cpuCount: 1
+    clusterSize: 1
+    # No backupConfig: development data is disposable (see production).
+  databases:
+    - name: island-venues
