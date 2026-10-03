@@ -1,0 +1,23 @@
+* @a-manraj-infrastream/venue-admins
+organization/island-venues/artifact-registry/docker-private.yaml @a-manraj-infrastream/venue-admins
+organization/island-venues/artifact-registry/static-private.yaml @a-manraj-infrastream/venue-admins
+organization/island-venues/github-connection/default.yaml @a-manraj-infrastream/venue-admins
+organization/island-venues/github-connection/github-repository/build-definition/island-venues-admin-build.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/github-connection/github-repository/build-definition/island-venues-api-build.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/github-connection/github-repository/build-definition/island-venues-notifier-build.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/github-connection/github-repository/build-definition/island-venues-web-build.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/github-connection/github-repository/island-venues-admin.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/github-connection/github-repository/island-venues-api.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/github-connection/github-repository/island-venues-notifier.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/github-connection/github-repository/island-venues-web.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/organization-user-group/developers.yaml @a-manraj-infrastream/venue-admins
+organization/island-venues/organization-user-group/venue-admins.yaml @a-manraj-infrastream/venue-admins
+organization/island-venues/organization-user-group/venue-ops.yaml @a-manraj-infrastream/venue-admins
+organization/island-venues/organization-user/ashley-manraj.yaml @a-manraj-infrastream/venue-admins
+organization/island-venues/organizational-unit/island-venues/environment/development/development.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/organizational-unit/island-venues/environment/development/project/island-venues.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/organizational-unit/island-venues/environment/production/production.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/organizational-unit/island-venues/environment/production/project/island-venues.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/organizational-unit/island-venues/island-venues.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/organizational-unit/island-venues/release-track/main-track.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins
+organization/island-venues/organizational-unit/island-venues/release-track/main-track/application-set/island-venues.yaml @a-manraj-infrastream/developers @a-manraj-infrastream/venue-admins

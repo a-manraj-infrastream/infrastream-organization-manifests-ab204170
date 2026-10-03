@@ -1,0 +1,67 @@
+name: Pull Request Context
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  GEMINI_CLI_TRUST_WORKSPACE: "true"
+
+jobs:
+  add-context:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      id-token: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Generate PR Context
+        id: gemini
+        uses: google-github-actions/run-gemini-cli@v0
+        with:
+          gcp_workload_identity_provider: ${{ secrets.ISLAND_VENUES_WORKLOAD_IDENTITY_PROVIDER_ID }}
+          gcp_service_account: ${{ secrets.ISLAND_VENUES_PR_BOT_SERVICE_ACCOUNT }}
+          gcp_project_id: ${{ vars.ISLAND_VENUES_INFRASTREAM_CORE_PROJECT_ID }}
+          gcp_location: global
+          gemini_model: gemini-3.8-flash
+          gemini_cli_version: "0.60.0"
+          use_vertex_ai: "true"
+          use_gemini_code_assist: "false"
+          settings: |-
+            {
+              "mcpServers": {
+                 "github": {
+                   "command": "docker",
+                   "args": [
+                     "run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "ghcr.io/github/github-mcp-server:v0.27.0"
+                   ],
+                   "env": {
+                     "GITHUB_PERSONAL_ACCESS_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
+                   }
+                 }
+              }
+            }
+          prompt: |
+            You are an infrastructure expert assisting with a pull request in an Infrastream manifest repository. 
+            This repository is the declarative Source of Truth for the infrastructure platform, containing YAML manifests that define environments, organizations, and resources.
+
+            IMPORTANT Context: You are summarizing Pull Request #${{ github.event.pull_request.number }} in the ${{ github.repository }} repository. Use your available GitHub MCP Server tools (like pull_request_read, get_commit, get_file_contents, etc.) to examine the PR changes and diff natively. If the PR references any issue tracking tickets (e.g., INF-455) or GitHub Issue numbers, you should also use your search_issues or issue_read tools to fetch and summarize the context of those tickets.
+
+            Please analyze the changes and generate an appropriate summary for this pull request. Focus on what infrastructure components were changed and why.
+
+            You MUST use the 'update_pull_request' MCP tool to edit and overwrite the pull request description (body). Set the 'owner' parameter to '${{ github.repository_owner }}', the 'repo' parameter to '${{ github.event.repository.name }}', and the 'pullNumber' parameter to ${{ github.event.pull_request.number }}. Write your summary directly to the 'body' parameter using the following format:
+
+            ## Infrastructure Changes
+            - **[Manifest Key/Name]**: [Brief description of the change]
+
+            ## Summary
+            [A 1-2 sentence high-level summary of the overall impact of these changes]
