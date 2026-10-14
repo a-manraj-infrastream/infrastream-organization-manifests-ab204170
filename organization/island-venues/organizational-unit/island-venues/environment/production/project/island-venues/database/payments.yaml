@@ -1,0 +1,18 @@
+apiVersion: lowops.manifests.v1
+kind: Database
+metadata:
+  name: payments
+  project: island-venues
+  environment: production
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: PostgreSQL database for the payments service
+  alloydb:
+    cpuCount: 1
+    clusterSize: 1
+    backupConfig:
+      enabled: true
+      quantityBasedRetention: 7
+  databases:
+    - name: payments

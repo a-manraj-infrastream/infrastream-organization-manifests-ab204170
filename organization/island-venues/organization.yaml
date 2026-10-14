@@ -16,13 +16,5 @@ spec:
     internal: island-venues.internal
   github:
     organization: a-manraj-infrastream
-  permissions:
-    administrators:
-      groups:
-        - venue-admins
-      members: []
-    contributors:
-      groups: []
-      members: []
   workforceFederation:
     infrastreamManaged: {}
