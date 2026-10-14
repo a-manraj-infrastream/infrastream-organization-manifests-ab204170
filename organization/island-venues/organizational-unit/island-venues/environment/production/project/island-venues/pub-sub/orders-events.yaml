@@ -1,0 +1,11 @@
+apiVersion: lowops.manifests.v1
+kind: PubSub
+metadata:
+  name: orders-events
+  project: island-venues
+  environment: production
+  organizational-unit: island-venues
+  organization: island-venues
+spec:
+  description: Order events for Island Venues
+  messageRetentionDurationSeconds: 604800
