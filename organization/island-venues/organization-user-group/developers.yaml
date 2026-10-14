@@ -9,4 +9,5 @@ spec:
   members:
     users:
       - ashley-manraj
+      - jane-doe
     external: []

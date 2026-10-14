@@ -1,0 +1,10 @@
+apiVersion: lowops.manifests.v1
+kind: OrganizationUser
+metadata:
+  name: jane-doe
+  organization: island-venues
+spec:
+  primaryEmail: jane.doe@acme.com
+  identity:
+    firstName: Jane
+    lastName: Doe
